@@ -30,7 +30,8 @@ class GeneratorsServiceProvider extends ServiceProvider {
     {
         $this->app['generate.service'] = $this->app->share(function($app)
         {
-            return new ServiceGeneratorCommand(new ServiceGenerator);
+            $generator = new ServiceGenerator($app['files']);
+            return new ServiceGeneratorCommand($generator);
         });
     }
 

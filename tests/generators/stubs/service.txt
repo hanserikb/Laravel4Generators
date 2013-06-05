@@ -1,0 +1,13 @@
+<?php
+
+/**
+*  Service layer for the Foo class.
+*/
+class FooService
+{
+
+    function __construct(argument)
+    {
+        # code...
+    }
+}
