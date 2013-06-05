@@ -37,7 +37,7 @@ class ServiceGeneratorCommand extends Command {
 	 */
 	public function fire()
 	{
-		//
+        $this->info('The name argument is ' . $this->argument('name'));
 	}
 
 	/**
@@ -48,7 +48,7 @@ class ServiceGeneratorCommand extends Command {
 	protected function getArguments()
 	{
 		return array(
-			array('example', InputArgument::REQUIRED, 'An example argument.'),
+			array('name', InputArgument::REQUIRED, 'An example argument.'),
 		);
 	}
 
