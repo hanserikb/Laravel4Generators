@@ -43,6 +43,8 @@ class ServiceGeneratorCommand extends Command {
         $path = $this->getPath();
         if ($this->generator->make($path)) {
             $this->info("Created {$path}");
+        } else {
+            $this->info("Could not create {$path}");
         }
     }
 
