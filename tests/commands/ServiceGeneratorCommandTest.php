@@ -37,9 +37,9 @@ class ServiceGeneratorCommandTest extends PHPUnit_Framework_TestCase
     public function testAlertUserIfServiceGenerationFails()
     {
         $this->gen->shouldReceive('make')
-        ->once()
-        ->with('app/services/Foo.php')
-        ->andReturn(false);
+            ->once()
+            ->with('app/services/Foo.php')
+            ->andReturn(false);
 
         $command = new ServiceGeneratorCommand($this->gen);
 
@@ -47,6 +47,24 @@ class ServiceGeneratorCommandTest extends PHPUnit_Framework_TestCase
         $tester->execute(['name' => 'foo']);
 
         $this->assertEquals("Could not create app/services/Foo.php\n",
+         $tester->getDisplay()
+        );
+
+    }
+
+    public function testCanAcceptCustomPathToServices()
+    {
+        $this->gen->shouldReceive('make')
+            ->once()
+            ->with('application/services/Foo.php')
+            ->andReturn(true);
+
+        $command = new ServiceGeneratorCommand($this->gen);
+
+        $tester = new CommandTester($command);
+        $tester->execute(['name' => 'foo', '--path' => 'application/services']);
+
+        $this->assertEquals("Created application/services/Foo.php\n",
          $tester->getDisplay()
         );
 
