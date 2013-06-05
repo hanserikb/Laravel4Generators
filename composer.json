@@ -1,0 +1,20 @@
+{
+    "name": "bentlov/generators",
+    "description": "",
+    "authors": [
+        {
+            "name": "Hans Bentlöv",
+            "email": "hans@bentlov.se"
+        }
+    ],
+    "require": {
+        "php": ">=5.3.0",
+        "illuminate/support": "4.0.x"
+    },
+    "autoload": {
+        "psr-0": {
+            "Bentlov\\Generators": "src/"
+        }
+    },
+    "minimum-stability": "dev"
+}
