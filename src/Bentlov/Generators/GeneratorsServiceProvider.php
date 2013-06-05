@@ -1,7 +1,8 @@
 <?php namespace Bentlov\Generators;
 
 use Illuminate\Support\ServiceProvider;
-
+use Bentlov\Generators\Commands\ServiceGeneratorCommand;
+use Bentlov\Generators\Generators\ServiceGenerator;
 class GeneratorsServiceProvider extends ServiceProvider {
 
 	/**
@@ -29,7 +30,7 @@ class GeneratorsServiceProvider extends ServiceProvider {
     {
         $this->app['generate.service'] = $this->app->share(function($app)
         {
-            return new Commands\ServiceGeneratorCommand;
+            return new ServiceGeneratorCommand(new ServiceGenerator);
         });
     }
 
