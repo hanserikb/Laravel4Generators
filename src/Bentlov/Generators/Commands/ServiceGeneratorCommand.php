@@ -1,5 +1,6 @@
 <?php namespace Bentlov\Generators\Commands;
 
+use Bentlov\Generators\Generators\ServiceGenerator;
 use Illuminate\Console\Command;
 use Symfony\Component\Console\Input\InputOption;
 use Symfony\Component\Console\Input\InputArgument;
@@ -25,9 +26,11 @@ class ServiceGeneratorCommand extends Command {
 	 *
 	 * @return void
 	 */
-	public function __construct()
+	public function __construct(ServiceGenerator $generator)
 	{
 		parent::__construct();
+        $this->generator = $generator;
+
 	}
 
 	/**
@@ -37,8 +40,16 @@ class ServiceGeneratorCommand extends Command {
 	 */
 	public function fire()
 	{
-        $this->info('The name argument is ' . $this->argument('name'));
-	}
+        $path = $this->getPath();
+        if ($this->generator->make($path)) {
+            $this->info("Created {$path}");
+        }
+    }
+
+    protected function getPath()
+    {
+        return $this->option('path') . '/' . ucwords($this->argument('name')) . '.php';
+    }
 
 	/**
 	 * Get the console command arguments.
@@ -48,7 +59,7 @@ class ServiceGeneratorCommand extends Command {
 	protected function getArguments()
 	{
 		return array(
-			array('name', InputArgument::REQUIRED, 'An example argument.'),
+			array('name', InputArgument::REQUIRED, 'Name of the model.'),
 		);
 	}
 
@@ -60,7 +71,7 @@ class ServiceGeneratorCommand extends Command {
 	protected function getOptions()
 	{
 		return array(
-			array('example', null, InputOption::VALUE_OPTIONAL, 'An example option.', null),
+			array('path', null, InputOption::VALUE_OPTIONAL, 'Path to the services directory.', 'app/services'),
 		);
 	}
 
